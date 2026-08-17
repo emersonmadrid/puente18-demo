@@ -143,7 +143,7 @@ const dias=f=>Math.round((new Date(HOY)-new Date(f))/86400000);
 const atrasadas=()=>s.citas.filter(c=>!c.hecha&&c.f&&c.f<HOY);
 const proximas=()=>s.citas.filter(c=>!c.hecha&&(!c.f||c.f>=HOY)).sort((a,b)=>(a.f||'9')<(b.f||'9')?-1:1);
 const hechas=()=>s.citas.filter(c=>c.hecha);
-const ET=['Preparación','Transferencia','Primera atención adulta'];
+const ET=['Mis primeros pasos','Transferencia','Primera atención adulta'];
 
 const fresh=()=>({
  hitos:[{t:'Recibí mi hoja de referencia',v:0},{t:'Sé a qué servicio de adultos voy',v:0},{t:'Ya tengo fecha de cita',v:0},{t:'Ya me atendieron por primera vez',v:0}],
@@ -221,7 +221,7 @@ const SC=[
  ${et()===0?`<p class="t1">Pide tu referencia en tu próxima cita de pediatría</p><p class="p1">Sin ella no puedes empezar en adultos. Puedes pedirla aunque aún no cumplas 18.</p>`
  :et()===1?`<p class="t1">Lleva tu referencia al Hospital San Martín</p><p class="p1">Mientras antes vayas, antes te dan la cita.</p>`
  :`<p class="t1">Prepárate para tu primera cita</p><p class="p1">Revisa qué llevar y anota tus preguntas.</p>`}
- <button class="btn wh" data-a="p" data-i="${et()===0?4:et()===1?8:10}">Ir a ${et()===0?"Mi preparación":et()===1?"Dónde me atenderé":"Preparar mi consulta"} →</button></div>
+ <button class="btn wh" data-a="p" data-i="${et()===0?4:et()===1?8:10}">Ir a ${et()===0?"Mis primeros pasos":et()===1?"Dónde me atenderé":"Preparar mi consulta"} →</button></div>
  <h3>Cómo vas</h3>
  <div class="card"><p class="ml"><b>Etapa:</b> ${ET[et()]}</p><div class="meter"><i style="width:${Math.round((et()+1)/ET.length*100)}%"></i></div>
  <p class="ml"><b>Autonomía:</b> ${aL().toLowerCase()}</p><div class="meter"><i class="tl" style="width:${aP()}%"></i></div>
