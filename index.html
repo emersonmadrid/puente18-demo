@@ -184,7 +184,7 @@ const pendEtapa=()=>[...s.docs,...s.saber,...s.insumos].filter(x=>x.e===et()&&!x
 const sub=(g,cur)=>GR(g).length<2?'':`<div class="subtabs">${GR(g).map(i=>`<button data-a="p" data-i="${i}" class="${i===cur?'on':''}">${SC[i].tab}</button>`).join('')}</div>`;
 const stageItems=(i)=>[...s.docs,...s.saber,...s.insumos].filter(x=>x.e===i);
 const stageStatus=(i)=>{const it=stageItems(i);if(!it.length)return'pend';const d=it.filter(x=>x.v).length;
- return d===0?'pend':d===it.length?'done':'now';};
+ if(d===it.length)return'done'; if(i>et())return'pend'; return d===0?'pend':'now';};
 const stageLbl={pend:'Pendiente',now:'En proceso',done:'Completado'};
 const hSteps=()=>`<div class="hsteps">${ET.map((e,i)=>{
  const st=stageStatus(i), cls=st==='pend'?'':st;
@@ -236,7 +236,7 @@ const SC=[
  return `<li class="${c}"><span class="dot ${c}"></span><div><p class="st">${e}</p><p class="ss">${i<et()?'Completada':i===et()?'En curso':'Pendiente'}</p></div></li>`;}).join('')}</ol>
  <h3>Hitos · esto mueve tu etapa</h3><p class="p1" style="margin:-4px 0 10px">Solo estos cuatro cambian tu etapa. Las tareas de Preparar no.</p>${chks('hitos',s.hitos)}`},
 
-{g:1,eye:'Marca lo que ya tienes',t:'Mi preparación',tab:'Preparar',b:()=>`
+{g:1,eye:'Marca lo que ya tienes',t:'Mi Ruta',tab:'Preparar',b:()=>`
  ${sub(1,4)}
  ${hSteps()}
  <p class="lbl">¿De qué etapa quieres ver las tareas?</p>
