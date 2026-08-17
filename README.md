@@ -24,6 +24,10 @@ no como producto clínico terminado.
    es independiente de la condición y reutilizable para otras enfermedades
    crónicas, raras o complejas.
 
+## Documentación del producto
+- [`docs/Definición de producto y alcance funcional preliminar.docx`](./docs/Definición%20de%20producto%20y%20alcance%20funcional%20preliminar.docx) — alcance, decisiones de producto y criterios de seguridad funcional.
+- [`docs/Requerimientos funcionales.xlsx`](./docs/Requerimientos%20funcionales.xlsx) — lista de requerimientos funcionales (MUST/SHOULD) usados para construir el prototipo.
+
 ## Licencia
 MIT — ver [LICENSE](./LICENSE). Uso, adaptación y redistribución libres,
 reconociendo la autoría original.
