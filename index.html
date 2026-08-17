@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Puente 18+</title>
+<style>
+:root{--ink:#16302c;--ink-2:#4a635e;--ink-3:#7e948f;--line:#dfe5e1;--line-2:#c2ccc7;
+--bg:#f6f4ef;--card:#fff;--teal:#0f6e56;--teal-bg:#e1f5ee;--amber:#854f0b;--amber-bg:#faeeda;
+--ok:#3b6d11;--red:#9c3226;--red-bg:#fbeae7;
+--sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--mono:ui-monospace,Menlo,monospace}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0}
+body{background:#e8e5dd;font-family:var(--sans);color:var(--ink)}
+#app{width:100%;max-width:420px;margin:0 auto;min-height:100vh;background:var(--bg);display:flex;flex-direction:column;position:relative}
+@media(min-width:520px){body{padding:22px 0}#app{border:1px solid #cfcbc1;border-radius:22px;overflow:hidden;min-height:0}}
+header{position:sticky;top:0;z-index:5;padding:16px 20px 13px;background:var(--card);border-bottom:1px solid var(--line)}
+header{display:flex;align-items:flex-start;gap:12px}
+.back{flex:none;width:38px;height:38px;border-radius:10px;border:1px solid var(--line-2);background:#fff;
+color:var(--ink);font-size:19px;line-height:1;cursor:pointer;margin-top:2px;font-family:var(--sans)}
+.back:active{opacity:.7}
+.htxt{flex:1;min-width:0}
+header .eye{font-size:11.5px;color:var(--ink-3);margin:0 0 2px}
+header h1{font-size:19px;font-weight:600;margin:0;letter-spacing:-.01em}
+main{flex:1 0 auto;padding:15px 20px 30px}
+.subtabs{display:flex;gap:6px;margin:0 0 16px}
+.subtabs button{flex:1;padding:8px 4px;font-size:11.5px;border-radius:8px;border:1px solid var(--line-2);background:transparent;color:var(--ink-3);font-family:var(--sans);cursor:pointer}
+.subtabs button.on{background:var(--ink);border-color:var(--ink);color:#fff;font-weight:600}
+.card{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:14px 16px;margin-bottom:12px}
+.card.amber{background:var(--amber-bg);border-color:#eeddba}
+.card.teal{background:var(--teal-bg);border-color:#c4e5da}
+.card.red{background:var(--red-bg);border-color:#f0cfc9}
+.card.done{background:#f2f7ec;border-color:#d5e5c2}
+.vid{display:flex;gap:12px;align-items:flex-start}
+.vthumb{flex:none;width:52px;height:52px;border-radius:10px;background:var(--teal-bg);color:var(--teal);
+ display:flex;align-items:center;justify-content:center;font-size:18px}
+.vinfo{flex:1;min-width:0}
+.irow{display:flex;gap:10px;align-items:flex-start;padding:7px 0}
+.irow:last-child{padding-bottom:0}
+.ibadge{flex:none;width:30px;height:30px;border-radius:50%;background:var(--teal-bg);color:var(--teal);
+ display:flex;align-items:center;justify-content:center;font-size:13px}
+.eye2{font-size:10.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);font-weight:600;margin:0 0 7px}
+.card.amber .eye2{color:var(--amber)}.card.teal .eye2{color:var(--teal)}.card.red .eye2{color:var(--red)}
+.t1{font-size:15px;font-weight:600;margin:0 0 5px;line-height:1.35}
+.p1{font-size:13px;color:var(--ink-2);margin:0;line-height:1.55}
+.p2{font-size:11.5px;color:var(--ink-3);margin:6px 0 0;line-height:1.45}
+h3{font-size:11px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);margin:22px 0 10px;font-weight:600}
+h3:first-child{margin-top:0}
+.btn{display:block;width:100%;padding:13px;border-radius:10px;border:1px solid var(--line-2);background:transparent;color:var(--ink);font-family:var(--sans);font-size:13.5px;margin-top:10px;cursor:pointer}
+.btn.solid{background:var(--teal);border-color:var(--teal);color:#fff;font-weight:600}
+.btn.wh{background:#fff}
+.btn:disabled{background:#f2f7ec;border-color:#d5e5c2;color:var(--ok);cursor:default}
+.btn:active{opacity:.8}
+.row{display:flex;gap:9px}.row .btn{margin-top:0}
+ol{list-style:none;margin:0;padding:0}
+ol li{display:flex;gap:13px;padding-bottom:19px;position:relative}
+ol li:last-child{padding-bottom:0}
+ol li::before{content:"";position:absolute;left:8px;top:20px;bottom:0;width:2px;background:var(--line)}
+ol li.done::before{background:var(--ok)}
+ol li:last-child::before{display:none}
+.dot{flex:none;width:18px;height:18px;border-radius:50%;border:2px solid var(--line);background:var(--card);margin-top:1px;z-index:1}
+.dot.done{background:var(--ok);border-color:var(--ok)}
+.dot.now{background:var(--teal);border-color:var(--teal);box-shadow:0 0 0 4px var(--teal-bg)}
+.hsteps{display:flex;align-items:flex-start;margin:2px 0 20px}
+.hstep{display:flex;flex-direction:column;align-items:center;flex:none}
+.hs{flex:none;width:26px;height:26px;border-radius:50%;border:2px solid var(--line);background:var(--card);
+ display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:700;color:var(--ink-3)}
+.hs.done{background:var(--ok);border-color:var(--ok);color:#fff}
+.hs.now{background:var(--teal);border-color:var(--teal);color:#fff;box-shadow:0 0 0 4px var(--teal-bg)}
+.hcap{font-size:9.5px;margin:5px 0 0;color:var(--ink-3);text-align:center;white-space:nowrap}
+.hcap.now{color:var(--teal);font-weight:600}
+.hcap.done{color:var(--ok);font-weight:600}
+.hline{flex:1;height:2px;background:var(--line);margin:13px 4px 0}
+.hline.done{background:var(--ok)}
+.st{font-size:14.5px;font-weight:600;margin:0}
+.ss{font-size:12px;color:var(--ink-3);margin:3px 0 0}
+li.done .ss{color:var(--ok)}li.now .ss{color:var(--teal);font-weight:600}
+.chk{display:flex;gap:12px;align-items:flex-start;padding:11px 0;border:0;border-bottom:1px solid var(--line);width:100%;text-align:left;background:none;cursor:pointer;font-family:var(--sans)}
+.chk:last-of-type{border-bottom:0}
+.tick{flex:none;width:20px;height:20px;border-radius:6px;border:2px solid var(--line-2);position:relative;transition:.15s}
+.tick.on{background:var(--ok);border-color:var(--ok)}
+.tick.on::after{content:"";position:absolute;left:5px;top:2px;width:5px;height:10px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
+.chk span{font-size:13.5px;color:var(--ink);line-height:1.45}
+.meter{height:7px;background:var(--line);border-radius:4px;overflow:hidden;margin:6px 0 7px}
+.meter i{display:block;height:100%;background:var(--ok);transition:width .35s}
+.meter i.tl{background:var(--teal)}
+.ml{font-size:12.5px;color:var(--ink-2);margin:0}
+.seg{display:flex;gap:5px;margin-top:9px}
+.seg button{flex:1;padding:9px 2px;font-size:10.5px;border-radius:7px;border:1px solid var(--line-2);background:transparent;color:var(--ink-3);font-family:var(--sans);cursor:pointer}
+.seg button.on{background:var(--teal);border-color:var(--teal);color:#fff;font-weight:600}
+.f{padding:10px 0;border-bottom:1px solid var(--line)}
+.f:last-child{border-bottom:0}
+.k{font-family:var(--mono);font-size:10px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.05em;margin:0 0 4px}
+.v{font-size:13.5px;color:var(--ink);margin:0;line-height:1.45}
+.chart{height:100px;position:relative;margin:12px 0 6px;border-left:2px solid var(--line-2);border-bottom:2px solid var(--line-2)}
+.chart svg{position:absolute;inset:0;width:100%;height:100%}
+.ax{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+nav{position:sticky;bottom:0;z-index:5;display:grid;grid-template-columns:repeat(5,1fr);background:var(--card);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
+nav button{background:none;border:0;border-top:2px solid transparent;padding:11px 2px 13px;font-size:10.5px;color:var(--ink-3);font-family:var(--sans);cursor:pointer}
+nav button.on{color:var(--teal);border-top-color:var(--teal);font-weight:600}
+.toast{position:fixed;left:50%;transform:translateX(-50%) translateY(8px);width:calc(100% - 32px);max-width:388px;bottom:80px;z-index:9;background:var(--ink);color:#fff;padding:13px 15px;border-radius:11px;font-size:13px;line-height:1.45;opacity:0;transform:translateY(8px);transition:.25s;pointer-events:none}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+input.in,select.in{width:100%;padding:12px 13px;border:1px solid var(--line-2);border-radius:10px;
+font-family:var(--sans);font-size:14px;color:var(--ink);background:#fff;margin-top:5px}
+input.in:focus,select.in:focus{outline:2px solid var(--teal);outline-offset:-1px;border-color:var(--teal)}
+.lbl{font-size:12px;color:var(--ink-2);margin:0;font-weight:600}
+.fg{margin-bottom:15px}
+.sel{display:flex;align-items:center;gap:10px;width:100%;padding:13px 14px;margin-top:5px;
+border:1px solid var(--line-2);border-radius:10px;background:#fff;font-family:var(--sans);cursor:pointer;text-align:left}
+.sel span.v2{flex:1;font-size:14px;color:var(--ink)}
+.sel span.ar2{color:var(--ink-3);font-size:16px}
+.chips{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px}
+.chips button{padding:11px 6px;font-size:12px;border-radius:9px;border:1px solid var(--line-2);
+background:#fff;color:var(--ink-2);font-family:var(--sans);cursor:pointer;text-align:center}
+.chips button.on{background:var(--teal);border-color:var(--teal);color:#fff;font-weight:600}
+.opt{display:flex;gap:9px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);width:100%;
+text-align:left;background:none;border-top:0;border-left:0;border-right:0;cursor:pointer;font-family:var(--sans)}
+.opt span{font-size:14px;color:var(--ink)}
+.opt .ch{margin-left:auto;color:var(--teal);font-weight:700}
+.demo{font-size:11px;color:var(--ink-3);text-align:center;margin:20px 0 0;line-height:1.5}
+</style>
+</head>
+<body>
+<div id="app">
+  <header><div id="bk"></div><div class="htxt"><p class="eye" id="eye"></p><h1 id="ttl"></h1></div></header>
+  <main id="main"></main>
+  <div class="toast" id="toast"></div>
+  <nav id="nav"></nav>
+</div>
+<script>
+const NAV=['Inicio','Ruta','Salud','Citas','Aprendizaje'];
+const GRP={0:[2],1:[4,5],2:[6,7,8],3:[9,10],4:[13]};
+const GR=g=>GRP[g];
+const AUT=['Me ayudan','Con apoyo','Lo hago yo'];
+const HOY='2026-08-13';
+const CONDS=[{id:'DM1',n:'Diabetes mellitus tipo 1'},
+ {id:'CARD',n:'Cardiopatía congénita'},{id:'HEM',n:'Condición hematológica'},
+ {id:'REN',n:'Enfermedad renal crónica'},{id:'NEU',n:'Condición neurológica'},
+ {id:'OTRA',n:'Otra condición crónica, rara o compleja'}];
+const condN=()=>(CONDS.find(c=>c.id===s.perfil.cond)||CONDS[5]).n;
+const MES=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+const fFecha=f=>{if(!f)return'Sin fecha';const[a,m,d]=f.split('-');return `${+d} de ${MES[+m-1]}`;};
+const dias=f=>Math.round((new Date(HOY)-new Date(f))/86400000);
+const atrasadas=()=>s.citas.filter(c=>!c.hecha&&c.f&&c.f<HOY);
+const proximas=()=>s.citas.filter(c=>!c.hecha&&(!c.f||c.f>=HOY)).sort((a,b)=>(a.f||'9')<(b.f||'9')?-1:1);
+const hechas=()=>s.citas.filter(c=>c.hecha);
+const ET=['Preparación','Transferencia','Primera atención adulta'];
+
+const fresh=()=>({
+ hitos:[{t:'Recibí mi hoja de referencia',v:0},{t:'Sé a qué servicio de adultos voy',v:0},{t:'Ya tengo fecha de cita',v:0},{t:'Ya me atendieron por primera vez',v:0}],
+ docs:[{t:'Pedir mi hoja de referencia en pediatría',v:0,e:0},{t:'Hoja de referencia recibida',v:0,e:1},{t:'DNI',v:1,e:1},{t:'Carné del seguro',v:0,e:1},{t:'Resumen de transición impreso',v:0,e:2}],
+ saber:[{t:'Mi diagnóstico y desde cuándo lo tengo',v:1,e:0},{t:'Qué tratamiento uso y en qué dosis',v:1,e:0},{t:'Mis señales de alerta',v:0,e:0},{t:'A qué servicio de adultos me toca ir',v:0,e:1},{t:'Cómo sacar una cita sin ayuda',v:0,e:1},{t:'Qué preguntar en mi primera consulta',v:0,e:2}],
+ insumos:[{t:'Tratamiento suficiente para el cambio',v:1,e:0},{t:'Tiras reactivas · me quedan 12',v:0,e:1},{t:'Llevar mi tratamiento a la consulta',v:0,e:2}],
+ auto:[{t:'Sacar mis citas',v:0},{t:'Manejar mi tratamiento',v:2},{t:'Explicar mi historia al médico',v:0},{t:'Guardar mis documentos',v:1},{t:'Reconocer una descompensación',v:2}],
+ llevar:[{t:'DNI y carné del seguro',v:1},{t:'Resumen de transición',v:0},{t:'Lista de mi tratamiento actual',v:0}],
+ preg:['¿El tratamiento que uso sigue igual o me lo van a cambiar?','Si me cambian la presentación, ¿qué debo saber antes de usarla?','¿Cada cuánto vengo y cómo saco la próxima cita?'],
+ citas:[{t:'Control de endocrinología',f:'2026-08-09',r:0,hecha:false},{t:'Llevar referencia a admisión',f:'2026-08-14',r:1,hecha:false},{t:'Recoger tratamiento en farmacia',f:'2026-08-24',r:0,hecha:false},{t:'Última consulta en pediatría',f:'2026-08-02',r:0,hecha:true}],
+ glu:[142,118,131,104,126,98,120,110],
+ perfil:{alias:'Diego Salas',edad:'17',cond:'DM1',ped:'Servicio de pediatría',adulto:'Hospital San Martín'},
+ borrCita:{t:'',d:'',r:false,hecha:false}, borrGlu:{v:'',f:'',h:''}, etapaSel:null, alim:null, resumenListo:false,
+ derivacion:['Medicamentos actuales','Contacto de emergencia','Qué necesitas contar en tu cita','Verificar la información con mi médico pediatra'],
+ borrDeriv:{dni:'',correo:'',cod:''},
+ salud:{dx:'Diabetes mellitus tipo 1, desde los 12 años',tx:'Insulina basal en la noche e insulina rápida antes de cada comida',
+ al:'Ninguna conocida',ant:'Dos hospitalizaciones por descompensación, la última en 2024',cir:'Ninguna',
+ disp:'Glucómetro capilar',ctrl:'Endocrinología cada 3 meses'}
+});
+const KEY='puente18v1';
+function cargar(){ try{const r=localStorage.getItem(KEY); if(r){const o=JSON.parse(r); return {...fresh(),...o};}}catch(e){} return fresh(); }
+function guardar(){ try{localStorage.setItem(KEY,JSON.stringify({...s,etapaSel:null}));}catch(e){} }
+let s=cargar(), P=0, HIST=[];
+const DETALLE=new Set([1,12,14,15,16,17,18,19,20,21]);
+
+const et=()=>s.hitos[2].v?2:s.hitos[0].v?1:0;
+const setH=(i,v)=>{ if(v){for(let j=0;j<=i;j++)s.hitos[j].v=1;} else {for(let j=i;j<4;j++)s.hitos[j].v=0;} };
+const aP=()=>Math.round(s.auto.reduce((a,b)=>a+b.v,0)/(s.auto.length*2)*100);
+const aL=()=>{const p=aP();return p<34?'Me ayudan':p<75?'Lo hago con apoyo':'Lo hago yo';};
+const chks=(g,a)=>a.map((x,i)=>`<button class="chk" data-a="c" data-g="${g}" data-i="${i}"><span class="tick ${x.v?'on':''}"></span><span>${x.t}</span></button>`).join('');
+const eSel=()=>s.etapaSel??et();
+const chksE=(g)=>{const l=s[g].map((x,i)=>({x,i})).filter(o=>o.x.e===eSel());
+ return l.length? l.map(o=>`<button class="chk" data-a="c" data-g="${g}" data-i="${o.i}"><span class="tick ${o.x.v?'on':''}"></span><span>${o.x.t}</span></button>`).join('')
+ : '<p class="p2" style="margin:0 0 4px">Nada pendiente aquí en esta etapa.</p>';};
+const prepE=()=>[...s.docs,...s.saber,...s.insumos].filter(x=>x.e===eSel());
+const listo=()=>prepE().length>0 && prepE().every(x=>x.v);
+const pendEtapa=()=>[...s.docs,...s.saber,...s.insumos].filter(x=>x.e===et()&&!x.v);
+const sub=(g,cur)=>GR(g).length<2?'':`<div class="subtabs">${GR(g).map(i=>`<button data-a="p" data-i="${i}" class="${i===cur?'on':''}">${SC[i].tab}</button>`).join('')}</div>`;
+const stageItems=(i)=>[...s.docs,...s.saber,...s.insumos].filter(x=>x.e===i);
+const stageStatus=(i)=>{const it=stageItems(i);if(!it.length)return'pend';const d=it.filter(x=>x.v).length;
+ return d===0?'pend':d===it.length?'done':'now';};
+const stageLbl={pend:'Pendiente',now:'En proceso',done:'Completado'};
+const hSteps=()=>`<div class="hsteps">${ET.map((e,i)=>{
+ const st=stageStatus(i), cls=st==='pend'?'':st;
+ const step=`<div class="hstep"><div class="hs ${cls}">${i+1}</div><p class="hcap ${cls}">${stageLbl[st]}</p></div>`;
+ const line=i<ET.length-1?`<div class="hline ${stageStatus(i)==='done'?'done':''}"></div>`:'';
+ return step+line;
+}).join('')}</div>`;
+
+const SC=[
+{g:-1,eye:'Primera vez que abres la app',t:'Puente 18+',tab:'',b:()=>`
+ <div class="card teal"><p class="eye2">Bienvenido</p><p class="t1">Vas a pasar de pediatría al servicio de adultos</p>
+ <p class="p1">Esta app te acompaña: qué preparar, a dónde ir, qué llevar y qué necesitas saber.</p></div>
+ <button class="btn solid" data-a="p" data-i="20">Empezar</button>
+ <button class="btn" data-a="p" data-i="2">Ya usé la app antes</button>`},
+
+{g:-1,eye:'Solo lo mínimo',t:'Cuéntanos de ti',tab:'',b:()=>`
+ <div class="fg"><p class="lbl">Cómo te llamas</p><input class="in" data-f="alias" value="${s.perfil.alias}" placeholder="Tu nombre o apodo"></div>
+ <div class="fg"><p class="lbl">Edad</p><input class="in" data-f="edad" value="${s.perfil.edad}" inputmode="numeric" placeholder="17"></div>
+ <div class="fg"><p class="lbl">Tu condición</p>
+ <button class="sel" data-a="p" data-i="19"><span class="v2">${condN()}</span><span class="ar2">&#8250;</span></button></div>
+ <div class="fg"><p class="lbl">Dónde te atiendes hoy</p><input class="in" data-f="ped" value="${s.perfil.ped}" placeholder="Establecimiento pediátrico"></div>
+ <div class="fg"><p class="lbl">Servicio de adultos de destino</p><input class="in" data-f="adulto" value="${s.perfil.adulto}" placeholder="Si aún no lo sabes, déjalo vacío"></div>
+ <h3>¿Qué has logrado ya?</h3>
+ <div class="card"><p class="p1" style="margin-bottom:4px">Marca lo que ya pasó. Con eso calculamos tu etapa.</p>
+ ${chks('hitos',s.hitos)}
+ <p class="p2">Tu etapa se define por esto, no por tu edad. Con lo marcado estarías en <b>${ET[et()]}</b>.</p></div>
+ <button class="btn solid" data-a="guardarPerfil">Guardar perfil</button>`},
+
+{g:0,eye:'Miércoles 12 de agosto',t:'Hola, Diego',tab:'Inicio',b:()=>`
+ ${!s.hitos[0].v?`<div class="card teal"><p class="eye2">Tu institución ya preparó tu derivación</p>
+ <p class="t1">Activa tu Conexión</p><p class="p1">Descarga tu Hoja de Referencia automáticamente con el código que te enviaron por correo.</p>
+ <button class="btn wh" data-a="p" data-i="20">Activar tu Conexión →</button></div>`:''}
+ <div class="card amber"><p class="eye2">Tu siguiente paso</p>
+ ${et()===0?`<p class="t1">Pide tu referencia en tu próxima cita de pediatría</p><p class="p1">Sin ella no puedes empezar en adultos. Puedes pedirla aunque aún no cumplas 18.</p>`
+ :et()===1?`<p class="t1">Lleva tu referencia al Hospital San Martín</p><p class="p1">Mientras antes vayas, antes te dan la cita.</p>`
+ :`<p class="t1">Prepárate para tu primera cita</p><p class="p1">Revisa qué llevar y anota tus preguntas.</p>`}
+ <button class="btn wh" data-a="p" data-i="${et()===0?4:et()===1?8:10}">Ir a ${et()===0?"Mi preparación":et()===1?"Dónde me atenderé":"Preparar mi consulta"} →</button></div>
+ <h3>Cómo vas</h3>
+ <div class="card"><p class="ml"><b>Etapa:</b> ${ET[et()]}</p><div class="meter"><i style="width:${Math.round((et()+1)/ET.length*100)}%"></i></div>
+ <p class="ml"><b>Autonomía:</b> ${aL().toLowerCase()}</p><div class="meter"><i class="tl" style="width:${aP()}%"></i></div>
+ <p class="p2">Son dos cosas distintas: puedes estar en adultos y seguir necesitando ayuda.</p></div>
+ <h3>Te falta</h3>
+ ${atrasadas().length?atrasadas().map(c=>`<div class="card red"><p class="t1">${c.t}</p><p class="p1">Venció el ${fFecha(c.f)} · hace ${dias(c.f)} días</p></div>`).join(''):'<div class="card done"><p class="t1">Nada atrasado</p></div>'}
+ ${pendEtapa().length?`<div class="card"><p class="t1">${pendEtapa()[0].t}</p><p class="p1">Tarea pendiente de ${ET[et()]}</p></div>`:`<div class="card done"><p class="t1">Etapa al día</p><p class="p1">No te falta ninguna tarea en ${ET[et()]}.</p></div>`}
+ <p class="demo">Prototipo con datos ficticios.</p>`},
+
+{g:1,eye:()=>`Etapa ${et()+1} de ${ET.length}`,t:'Mi ruta',tab:'Ruta',b:()=>`
+ ${sub(1,3)}<ol>${ET.map((e,i)=>{const c=i<et()?'done':i===et()?'now':'';
+ return `<li class="${c}"><span class="dot ${c}"></span><div><p class="st">${e}</p><p class="ss">${i<et()?'Completada':i===et()?'En curso':'Pendiente'}</p></div></li>`;}).join('')}</ol>
+ <h3>Hitos · esto mueve tu etapa</h3><p class="p1" style="margin:-4px 0 10px">Solo estos cuatro cambian tu etapa. Las tareas de Preparar no.</p>${chks('hitos',s.hitos)}`},
+
+{g:1,eye:'Marca lo que ya tienes',t:'Mi preparación',tab:'Preparar',b:()=>`
+ ${sub(1,4)}
+ ${hSteps()}
+ <p class="lbl">¿De qué etapa quieres ver las tareas?</p>
+ <div class="chips" style="margin-bottom:16px">
+ ${['1 - Mis primeros pasos','2 - Preparacion','3 - Primera atención'].map((e,i)=>
+ `<button data-a="selEtapa" data-v="${i}" class="${eSel()===i?'on':''}">${e}</button>`).join('')}</div>
+ ${et()===0?`<div class="card amber"><p class="eye2">Lo más importante ahora</p><p class="t1">Pide tu referencia</p>
+ <p class="p1">Es lo único que necesitas hacer en esta etapa. Pídesela a tu médico de pediatría en tu próxima cita.</p></div>`:''}
+ <div class="card"><p class="ml"><b>${prepE().filter(x=>x.v).length} de ${prepE().length} completadas en ${ET[eSel()]}</b></p>
+ <div class="meter"><i style="width:${prepE().length?Math.round(prepE().filter(x=>x.v).length/prepE().length*100):0}%"></i></div></div>
+ ${eSel()!==et()?`<div class="card"><p class="p1">Estás viendo las tareas de <b>${ET[eSel()]}</b>. Tu etapa actual es <b>${ET[et()]}</b>.</p></div>`:''}
+ ${(listo()&&eSel()===et())?`<div class="card teal"><p class="eye2">Terminaste esta etapa</p>
+ <p class="t1">${['¿Ya te dieron tu hoja de referencia?','¿Ya tienes fecha para tu cita?','¿Ya fuiste a tu primera consulta?'][eSel()]}</p>
+ <p class="p1">${['Si ya la tienes, pasas a organizar tu traslado.','Si ya tienes fecha, pasas a preparar tu consulta.','Si ya fuiste, completaste tu proceso de transición.'][eSel()]}</p>
+ <button class="btn solid" data-a="avanzar" data-e="${eSel()}">Sí, ya lo hice</button>
+ <button class="btn wh" data-a="t" data-m="Sin problema. Cuando lo consigas, vuelve y márcalo.">Todavía no</button></div>`:''}
+ <h3>Mis documentos</h3>${chksE('docs')}
+ <h3>Lo que necesito saber</h3>${chksE('saber')}
+ <h3>Mis insumos</h3>${chksE('insumos')}`},
+
+{g:1,eye:'Cómo haces las cosas hoy',t:'Mi autonomía',tab:'Autonomía',b:()=>`
+ ${sub(1,5)}<div class="card teal"><p class="t1">${aL()}</p><div class="meter"><i class="tl" style="width:${aP()}%"></i></div>
+ <p class="p1">Toca cada opción y mira moverse la barra.</p></div>
+ ${s.auto.map((x,i)=>`<div class="card"><p class="t1">${x.t}</p><div class="seg">${AUT.map((l,j)=>`<button data-a="au" data-i="${i}" data-v="${j}" class="${x.v===j?'on':''}">${l}</button>`).join('')}</div></div>`).join('')}`},
+
+{g:2,eye:'Lo que necesitas saber y contar',t:'Mi salud',tab:'Mi salud',b:()=>`
+ ${sub(2,6)}<div class="card">
+ <div class="f"><p class="k">Condición</p><p class="v">${s.salud.dx}</p></div>
+ <div class="f"><p class="k">Tratamiento actual</p><p class="v">${s.salud.tx}</p></div>
+ <div class="f"><p class="k">Alergias</p><p class="v">${s.salud.al}</p></div>
+ <div class="f"><p class="k">Cirugías o procedimientos</p><p class="v">${s.salud.cir}</p></div>
+ <div class="f"><p class="k">Dispositivos</p><p class="v">${s.salud.disp}</p></div>
+ <div class="f"><p class="k">Antecedentes que debo contar</p><p class="v">${s.salud.ant}</p></div>
+ <div class="f"><p class="k">Controles que necesito</p><p class="v">${s.salud.ctrl}</p></div></div>
+ <button class="btn" data-a="p" data-i="14">Editar mi información</button>`},
+
+{g:2,eye:'Generado con tu información',t:'Resumen de transición',tab:'Resumen',b:()=>`
+ ${sub(2,7)}${!s.resumenListo?`<div class="card amber"><p class="eye2">Aún no generado</p>
+ <p class="t1">Genera tu resumen con lo que registraste</p>
+ <p class="p1">Se arma solo con la información de Mi salud. Puedes volver a generarlo cuando la actualices.</p>
+ <button class="btn wh" data-a="genResumen">Generar resumen</button></div>`:''}
+ ${s.resumenListo?`
+ <p class="p1" style="margin-bottom:13px">Muéstraselo al médico de adultos. Así no cuentas todo de nuevo.</p>
+ <div class="card teal"><p class="eye2">${s.perfil.alias} · ${s.perfil.edad} años</p><p class="t1">${s.salud.dx}</p>
+ <p class="p1">${s.salud.tx}</p></div>
+ <div class="card">
+ <div class="f"><p class="k">Motivo de la transferencia</p><p class="v">Paso a servicio de adultos por edad</p></div>
+ <div class="f"><p class="k">Eventos relevantes</p><p class="v">${s.salud.ant}</p></div>
+ <div class="f"><p class="k">Qué necesito del nuevo equipo</p><p class="v">Continuar tratamiento y explicarme cambios de presentación</p></div></div>
+ <div class="row"><button class="btn" data-a="t" data-m="Se descargaría un PDF con tu resumen.">Descargar</button>
+ <button class="btn" data-a="t" data-m="Tú decides con quién compartirlo. Nada se envía solo.">Compartir</button></div>`:''}`},
+
+{g:2,eye:'Tu próximo establecimiento',t:'Dónde me atenderé',tab:'Destino',b:()=>`
+ ${sub(2,8)}<div class="card teal"><p class="eye2">Servicio de adultos</p><p class="t1">Hospital San Martín</p>
+ <p class="p1">Endocrinología · a 40 minutos de tu casa</p></div>
+ <h3>Cómo sacar mi cita</h3>
+ <div class="card">
+ <div class="f"><p class="k">Paso 1</p><p class="v">Lleva tu referencia y tu DNI a admisión. No esperes: la cita puede demorar semanas.</p></div>
+ <div class="f"><p class="k">Paso 2</p><p class="v">Te dan una fecha en los días siguientes. Anótala aquí apenas la tengas.</p></div>
+ <div class="f"><p class="k">Paso 3</p><p class="v">Activa el recordatorio para no olvidarla.</p></div></div>
+ <h3>Qué cambia respecto a pediatría</h3>
+ <div class="card"><p class="p1">Las consultas son más cortas y esperan que tú expliques cómo te sientes.</p></div>
+ <button class="btn solid" data-a="cita" ${s.hitos[2].v?'disabled':''}>${s.hitos[2].v?'Cita registrada':'Ya me dieron cita'}</button>`},
+
+{g:3,eye:'Agosto 2026',t:'Mis citas',tab:'Citas',b:()=>`
+ ${sub(3,9)}
+ ${atrasadas().length?`<h3>Atrasado</h3>`+atrasadas().map((c,i)=>`<div class="card red"><p class="t1">${c.t}</p>
+ <p class="p1">Era el ${fFecha(c.f)} · hace ${dias(c.f)} día${dias(c.f)===1?'':'s'}</p>
+ <button class="btn" style="margin-top:9px;padding:9px;font-size:12px" data-a="hecha" data-t="${c.t}">Marcar como realizada</button></div>`).join(''):''}
+ <h3>Próximo</h3>
+ ${proximas().length?proximas().map(c=>`<div class="card"><p class="t1">${c.t}</p><p class="p1">${fFecha(c.f)}</p>
+ <button class="btn" style="margin-top:9px;padding:9px;font-size:12px" data-a="rec" data-t="${c.t}">${c.r?'Recordatorio activo · desactivar':'Sin recordatorio · activar'}</button>
+ <button class="btn" style="margin-top:7px;padding:9px;font-size:12px" data-a="hecha" data-t="${c.t}">Ya la hice</button></div>`).join(''):'<p class="p2">No tienes nada pendiente.</p>'}
+ ${hechas().length?`<h3>Ya pasó</h3>`+hechas().map(c=>`<div class="card done"><p class="t1">${c.t}</p><p class="p1">${fFecha(c.f)}</p></div>`).join(''):''}
+ <button class="btn" data-a="p" data-i="15">Agregar cita o control</button>`},
+
+{g:3,eye:'Tu primera cita en adultos',t:'Preparar mi consulta',tab:'Consulta',b:()=>`
+ ${sub(3,10)}<h3>Qué llevar</h3>${chks('llevar',s.llevar)}
+ <h3>Mis preguntas para el médico</h3>
+ ${s.preg.map(p=>`<div class="card"><p class="p1">${p}</p></div>`).join('')}
+ <button class="btn" data-a="ap">Agregar pregunta</button>
+ <button class="btn solid" style="margin-top:16px" data-a="p" data-i="16" ${s.hitos[3].v?'disabled':''}>${s.hitos[3].v?'Atención registrada':'Confirmar cita realizada'}</button>`},
+
+{g:4,eye:'Herramientas de tu condición',t:'Mi diabetes',tab:'Diabetes',b:()=>`
+ ${sub(4,11)}<p class="p1" style="margin-bottom:14px">¿Qué quieres hacer?</p>
+ <div class="card"><p class="t1">Registro de glucosa</p><p class="p1">Anota un valor y revisa tu gráfico.</p>
+ <button class="btn" data-a="p" data-i="12">Abrir</button></div>
+ <div class="card"><p class="t1">Estimador de carbohidratos</p><p class="p1">Consulta cuántos carbohidratos tiene una porción.</p>
+ <button class="btn" data-a="p" data-i="18">Abrir</button></div>
+ <p class="demo">Informativo. No calcula dosis de insulina.</p>`},
+
+{g:4,eye:'Módulo diabetes tipo 1',t:'Mi glucosa',tab:'',b:()=>{
+ const g=s.glu,mx=Math.max(...g)+20,mn=Math.min(...g)-20;
+ const pts=g.map((v,i)=>`${3+i*(94/(g.length-1))},${46-((v-mn)/(mx-mn))*40}`).join(' ');
+ return `<h3>Mis registros</h3>
+ <div class="card"><div class="chart"><svg viewBox="0 0 100 50" preserveAspectRatio="none">
+ <polyline points="${pts}" fill="none" stroke="#0f6e56" stroke-width="1.5"/></svg></div>
+ <div class="ax"><span>${g.length} registros</span><span>último: ${g[g.length-1]}</span></div>
+ <p class="p2">Solo muestra lo que registraste. No interpreta tus valores.</p></div>
+ <button class="btn solid" data-a="p" data-i="17">Registrar un valor</button>
+ <button class="btn" data-a="p" data-i="11">Volver al módulo</button>`}},
+
+{g:4,eye:'Videos para ti y tu familia',t:'Videos de salud',tab:'Videos',b:()=>`
+ ${VIDS.map(v=>`<div class="card vid"><div class="vthumb">▶</div><div class="vinfo">
+ <p class="t1" style="margin-bottom:2px">${v.t}</p><p class="p2" style="margin-bottom:8px">${v.c} · ${v.d}</p>
+ <button class="btn wh" style="margin-top:0;padding:8px;font-size:12px" data-a="t" data-m="Se reproduciría: ${v.t}">Reproducir</button>
+ </div></div>`).join('')}
+ <button class="btn" data-a="reset">Reiniciar el prototipo</button>
+ <p class="demo">Tus cambios se guardan en este celular. Reiniciar los borra. Videos ilustrativos para el prototipo.</p>`}
+];
+
+const ALIM=[{n:'Arroz cocido',p:'1 taza',g:45},{n:'Pan francés',p:'1 unidad',g:28},{n:'Papa sancochada',p:'1 mediana',g:30},{n:'Plátano',p:'1 unidad',g:27},{n:'Leche',p:'1 vaso',g:12}];
+const VIDS=[
+ {t:'Tecnicas de realizacion de glucosa',c:'Transición',d:'4:12'},
+ {t:'Tecnicas de inyecion de insulina',c:'Transición',d:'3:05'},
+ {t:'Comenzando a vivir con diabetes tipo 1',c:'Trámites',d:'2:48'},
+ {t:'De hacerlo todo a acompañar: guía para familias',c:'Familia',d:'5:30'},
+ {t:'Cómo cuidar tu salud en la vida diaria',c:'Autocuidado',d:'3:40'}
+];
+
+SC.push(
+{g:2,eye:'Registrar o editar',t:'Mi información de salud',tab:'',b:()=>`
+ <p class="p1" style="margin-bottom:15px">Escribe lo que necesitas conocer y poder contarle a cualquier médico.</p>
+ <div class="fg"><p class="lbl">Diagnóstico o condición</p><input class="in" data-f="dx" value="${s.salud.dx}"></div>
+ <div class="fg"><p class="lbl">Tratamiento o medicación actual</p><input class="in" data-f="tx" value="${s.salud.tx}"></div>
+ <div class="fg"><p class="lbl">Alergias</p><input class="in" data-f="al" value="${s.salud.al}"></div>
+ <div class="fg"><p class="lbl">Antecedentes que debo contar</p><input class="in" data-f="ant" value="${s.salud.ant}"></div>
+ <div class="fg"><p class="lbl">Procedimientos o cirugías</p><input class="in" data-f="cir" value="${s.salud.cir}"></div>
+ <div class="fg"><p class="lbl">Dispositivos</p><input class="in" data-f="disp" value="${s.salud.disp}"></div>
+ <div class="fg"><p class="lbl">Controles que necesito</p><input class="in" data-f="ctrl" value="${s.salud.ctrl}"></div>
+ <p class="demo">La app solo guarda lo que escribes. No sugiere ni modifica tratamientos.</p>
+ <button class="btn solid" data-a="guardarSalud">Guardar información</button>`},
+
+{g:3,eye:'Nueva cita, control o trámite',t:'Registrar cita',tab:'',b:()=>`
+ <div class="fg"><p class="lbl">¿Qué es?</p><input class="in" data-f="cTitulo" value="${s.borrCita.t}" placeholder="Control de endocrinología"></div>
+ <div class="fg"><p class="lbl">Fecha</p><input class="in" data-f="cFecha" type="date" value="${s.borrCita.d}"></div>
+ <div class="fg"><p class="lbl">Estado</p>
+ <div class="chips">
+ <button data-a="selEstado" data-v="0" class="${!s.borrCita.hecha?'on':''}">Pendiente</button>
+ <button data-a="selEstado" data-v="1" class="${s.borrCita.hecha?'on':''}">Ya la hice</button></div></div>
+ <button class="opt" data-a="cRec"><span>Crear recordatorio</span><span class="ch">${s.borrCita.r?'Sí':'No'}</span></button>
+ <button class="btn solid" style="margin-top:16px" data-a="guardarCita">Guardar</button>
+ <button class="btn" data-a="p" data-i="9">Cancelar</button>`},
+
+{g:3,eye:'Confirmar cita realizada',t:'¿Cómo te fue?',tab:'',b:()=>`
+ <div class="card amber"><p class="eye2">Una pregunta</p><p class="t1">¿Esta fue tu primera atención en el servicio de adultos?</p>
+ <p class="p1">Si lo fue, quedará registrada como tu primera atención en el servicio de adultos.</p></div>
+ <button class="btn solid" data-a="siPrimera">Sí, fue mi primera atención</button>
+ <button class="btn" data-a="noPrimera">No, fue otro control</button>`},
+
+{g:4,eye:'Módulo diabetes tipo 1',t:'Registrar glucosa',tab:'',b:()=>`
+ <div class="fg"><p class="lbl">Valor</p><input class="in" data-f="gVal" value="${s.borrGlu.v}" inputmode="numeric" placeholder="mg/dL"></div>
+ <div class="fg"><p class="lbl">Fecha</p><input class="in" data-f="gFecha" type="date" value="${s.borrGlu.f}"></div>
+ <div class="fg"><p class="lbl">Hora</p><input class="in" data-f="gHora" type="time" value="${s.borrGlu.h}"></div>
+ <p class="demo">La app guarda y muestra el valor. No lo interpreta ni calcula dosis.</p>
+ <button class="btn solid" data-a="guardarGlu">Guardar registro</button>
+ <button class="btn" data-a="p" data-i="12">Cancelar</button>`},
+
+{g:4,eye:'Módulo diabetes tipo 1',t:'Carbohidratos',tab:'',b:()=>`
+ <p class="p1" style="margin-bottom:14px">Elige un alimento y una porción.</p>
+ ${ALIM.map((a,i)=>`<button class="opt" data-a="alim" data-i="${i}"><span>${a.n}</span>${s.alim===i?'<span class="ch">✓</span>':''}</button>`).join('')}
+ ${s.alim!==null?`<div class="card teal" style="margin-top:16px"><p class="eye2">Estimado</p>
+ <p class="t1">${ALIM[s.alim].n} · ${ALIM[s.alim].p}</p>
+ <p class="p1">Aproximadamente <b>${ALIM[s.alim].g} g de carbohidratos</b></p></div>
+ <p class="demo">Referencial. No indica si puedes o no comerlo, ni cuánta insulina usar.</p>`:''}
+ <button class="btn" data-a="p" data-i="11">Volver al módulo</button>`},
+
+{g:-1,eye:'Elige la tuya de la lista',t:'Tu condición',tab:'',b:()=>`
+ ${CONDS.map(c=>`<button class="opt" data-a="pickCond" data-v="${c.id}"><span>${c.n}</span>${s.perfil.cond===c.id?'<span class="ch">✓</span>':''}</button>`).join('')}
+ <div class="card teal" style="margin-top:16px"><p class="eye2">Qué cambia</p>
+ <p class="p1">La app te acompaña igual en tu transición, sin importar tu condición de salud.</p></div>`},
+
+{g:0,eye:'Tu institución ya preparó tu derivación',t:'Activa tu Conexión',tab:'',b:()=>`
+ <div class="card teal"><div class="irow"><div class="ibadge">✉</div>
+ <p class="p1" style="margin:0">El Instituto Nacional de Salud del Niño habilitó la derivación y te envió un código temporal de acceso por correo.</p></div></div>
+ <div class="fg"><p class="lbl">DNI o documento</p><input class="in" data-f="dDni" value="${s.borrDeriv.dni}" placeholder="Ej. 12345678"></div>
+ <div class="fg"><p class="lbl">Correo</p><input class="in" data-f="dCorreo" value="${s.borrDeriv.correo}" placeholder="tu@email.com"></div>
+ <div class="fg"><p class="lbl">Código temporal</p><input class="in" data-f="dCod" value="${s.borrDeriv.cod}" placeholder="Ingresa el código recibido"></div>
+ <button class="btn" style="margin-top:0" data-a="t" data-m="Te reenviaríamos el código a tu correo.">¿No recibiste tu código?</button>
+ <h3>Qué pasará</h3>
+ <div class="card">
+ <div class="irow"><div class="ibadge">⬇</div><p class="p1">Descargaremos tu Hoja de Referencia</p></div>
+ <div class="irow"><div class="ibadge">📄</div><p class="p1">Completaremos datos útiles automáticamente</p></div>
+ <div class="irow"><div class="ibadge">✓</div><p class="p1">Tu acceso estará activo hasta tu primera cita</p></div>
+ </div>
+ <button class="btn solid" data-a="activarPuente">Descargar mi información</button>
+ <button class="btn" data-a="p" data-i="1">Más tarde</button>`},
+
+{g:0,eye:'Completamos lo esencial para tu primera cita',t:'Revisa tu hoja',tab:'',b:()=>`
+ <div class="card done"><div class="irow"><div class="ibadge" style="background:var(--ok);color:#fff">✓</div>
+ <div><p class="t1" style="margin-bottom:2px">Datos descargados</p><p class="p1">Tu Hoja de Referencia ya fue procesada.</p></div></div></div>
+ <h3>Extraído de tu Hoja de Referencia</h3>
+ <div class="card">
+ <div class="f"><p class="k">Institución de origen</p><p class="v">${s.perfil.ped}</p></div>
+ <div class="f"><p class="k">Condición</p><p class="v">${condN()}</p></div>
+ <div class="f"><p class="k">Próxima atención</p><p class="v">Consulta en ${s.perfil.adulto}</p></div>
+ <div class="f"><p class="k">Estado</p><p class="v">Guardado en tu dispositivo</p></div>
+ </div>
+ <h3>Qué hicimos por ti</h3>
+ <div class="card">
+ <div class="irow"><div class="ibadge">🔍</div><p class="p1">Leímos datos relevantes de tu referencia</p></div>
+ <div class="irow"><div class="ibadge">🗂</div><p class="p1">Organizamos tu información para usarla offline</p></div>
+ <div class="irow"><div class="ibadge">♥</div><p class="p1">Te ayudaremos hasta cerrar tu primera cita</p></div>
+ </div>
+ <h3>Falta completar</h3>
+ <div class="card">${s.derivacion.map(t=>`<div class="f"><p class="v">${t}</p></div>`).join('')}
+ <p class="p2" style="margin-top:2px">Nota: puedes completar la información faltante en la sección de Salud.</p></div>
+ <button class="btn solid" data-a="p" data-i="6">Ir a Salud</button>
+ <button class="btn" data-a="continuarDeriv">Continuar</button>`}
+);
+
+const M=document.getElementById('main'),NV=document.getElementById('nav');
+let tid;
+function toast(m){const e=document.getElementById('toast');e.textContent=m;e.classList.add('on');
+ clearTimeout(tid);tid=setTimeout(()=>e.classList.remove('on'),3000);}
+function draw(){
+ guardar();
+ const x=SC[P];
+ document.getElementById('bk').innerHTML = DETALLE.has(P)
+   ? '<button class="back" data-a="back" aria-label="Volver">&#8592;</button>' : '';
+ document.getElementById('eye').textContent=typeof x.eye==='function'?x.eye():x.eye;
+ document.getElementById('ttl').textContent=x.t;
+ M.innerHTML=x.b(); window.scrollTo(0,0);
+ NV.innerHTML = x.g<0 ? '' : NAV.map((l,i)=>`<button data-a="n" data-i="${i}" class="${i===x.g?'on':''}">${l}</button>`).join('');
+}
+document.getElementById('app').addEventListener('click',e=>{
+ const b=e.target.closest('[data-a]'); if(!b)return; const a=b.dataset.a;
+ if(a==='p'){HIST.push(P);P=+b.dataset.i;}
+ else if(a==='n'){HIST=[];P=GR(+b.dataset.i)[0];}
+ else if(a==='c'){const g=b.dataset.g,i=+b.dataset.i;
+   if(g==='hitos'){setH(i,!s.hitos[i].v);toast('Ahora estás en: '+ET[et()]+'.');}
+   else s[g][i].v=s[g][i].v?0:1;}
+ else if(a==='au'){s.auto[+b.dataset.i].v=+b.dataset.v;}
+ else if(a==='h0'){setH(0,false);toast('Estás en Preparación: lo tuyo ahora es pedir la referencia.');}
+ else if(a==='h1'){setH(0,true);toast('Estás en Transferencia: toca organizar tu traslado.');}
+ else if(a==='cita'){setH(2,true);toast('Listo. Pasaste a la etapa de primera atención.');}
+ else if(a==='rec'){const c=s.citas.find(x=>x.t===b.dataset.t); if(c){c.r=c.r?0:1;toast(c.r?'Recordatorio activado. Te avisamos el día antes.':'Recordatorio desactivado.');}}
+ else if(a==='ac'){s.citas.push({t:'Nueva cita de control',d:'Fecha por definir',r:0});toast('Cita agregada.');}
+ else if(a==='ap'){s.preg.push('Pregunta nueva para el médico');toast('Pregunta guardada.');}
+ else if(a==='ag'){s.glu.push(90+Math.floor(Math.random()*80));if(s.glu.length>12)s.glu.shift();toast('Valor registrado.');}
+ else if(a==='guardarPerfil'){toast('Perfil guardado. Calculamos tu situación de transición.');HIST=[];P=2;}
+ else if(a==='guardarSalud'){s.resumenListo=false;toast('Información guardada.');HIST=[];P=6;}
+ else if(a==='genResumen'){s.resumenListo=true;toast('Resumen generado con tu información.');}
+ else if(a==='cRec'){s.borrCita.r=!s.borrCita.r;}
+ else if(a==='guardarCita'){ if(!s.borrCita.t.trim()){toast('Escribe de qué es la cita.');return;}
+   s.citas.push({t:s.borrCita.t.trim(),f:s.borrCita.d||null,r:s.borrCita.r,hecha:s.borrCita.hecha});
+   s.borrCita={t:'',d:'',r:false,hecha:false}; toast(s.citas.at(-1).hecha?'Registrada en tu historial.':'Cita registrada.'); P=9;}
+ else if(a==='hecha'){const c=s.citas.find(x=>x.t===b.dataset.t); if(c){c.hecha=true;toast('Marcada como realizada.');}}
+ else if(a==='siPrimera'){setH(3,true);toast('Confirmado. Completaste tu primera atención en el servicio de adultos.');HIST=[];P=4;}
+ else if(a==='noPrimera'){toast('Registrado como control. Tu etapa no cambia.');HIST=[];P=9;}
+ else if(a==='guardarGlu'){ const v=parseInt(s.borrGlu.v,10);
+   if(!v||v<20||v>600){toast('Escribe un valor válido.');return;}
+   s.glu.push(v); if(s.glu.length>12)s.glu.shift();
+   s.borrGlu={v:'',f:'',h:''}; toast('Registro guardado.'); HIST=[]; P=12;}
+ else if(a==='back'){ P = HIST.length? HIST.pop() : (P===12||P===17||P===18?11:P===1?0:2); }
+ else if(a==='avanzar'){const e=+b.dataset.e; setH(e===0?0:e===1?2:3,true); s.etapaSel=null;
+   toast('Listo. Ahora estás en '+ET[et()]+'.'); P=4;}
+ else if(a==='selEtapa'){s.etapaSel=+b.dataset.v;}
+ else if(a==='pickCond'){s.perfil.cond=b.dataset.v; toast('Condición seleccionada.'); P=HIST.length?HIST.pop():1;}
+ else if(a==='activarPuente'){ if(!s.borrDeriv.dni.trim()||!s.borrDeriv.correo.trim()){toast('Completa tu DNI y correo.');return;}
+   toast('Hoja de Referencia descargada.'); s.borrDeriv={dni:'',correo:'',cod:''}; HIST=[]; P=21;}
+ else if(a==='continuarDeriv'){ setH(0,true); toast('Listo. Ya tienes tu referencia registrada.'); HIST=[]; P=1;}
+ else if(a==='selEstado'){s.borrCita.hecha=b.dataset.v==='1';}
+ else if(a==='alim'){s.alim=+b.dataset.i;}
+ else if(a==='reset'){try{localStorage.removeItem(KEY);}catch(e){} s=fresh(); P=0; HIST=[]; toast('Prototipo reiniciado.');}
+ else if(a==='t'){toast(b.dataset.m);return;}
+ draw();
+});
+document.getElementById('app').addEventListener('input',e=>{
+ const f=e.target.dataset.f; if(!f)return; const v=e.target.value;
+ const P1={alias:'alias',edad:'edad',ped:'ped',adulto:'adulto'};
+ const P2={dx:'dx',tx:'tx',al:'al',ant:'ant',cir:'cir',disp:'disp',ctrl:'ctrl'};
+ if(P1[f]) s.perfil[P1[f]]=v;
+ else if(P2[f]) s.salud[P2[f]]=v;
+ else if(f==='cTitulo') s.borrCita.t=v;
+ else if(f==='cFecha') s.borrCita.d=v;
+
+ else if(f==='cRec') s.borrCita.r=v;
+ else if(f==='gVal') s.borrGlu.v=v;
+ else if(f==='gFecha') s.borrGlu.f=v;
+ else if(f==='gHora') s.borrGlu.h=v;
+ else if(f==='dDni') s.borrDeriv.dni=v;
+ else if(f==='dCorreo') s.borrDeriv.correo=v;
+ else if(f==='dCod') s.borrDeriv.cod=v;
+
+});
+draw();
+</script>
+</body>
+</html>
